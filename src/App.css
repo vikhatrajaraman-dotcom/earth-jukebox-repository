@@ -1,0 +1,592 @@
+
+* {
+  box-sizing: border-box;
+}
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Orbitron:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap');
+html,
+body{
+  background: #050816;
+  color: white;
+  font-family: 'Inter', sans-serif;
+}
+.app-header h1 {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 25px;
+  letter-spacing: 5px;
+  color: #ffffff;
+}
+
+.app-header p {
+  font-family: 'Inter', sans-serif;
+}
+#root {
+  margin: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+body {
+  background: #050816;
+  color: white;
+  font-family: Arial, sans-serif;
+}
+
+.app {
+  width: 100vw;
+  height: 100vh;
+  background: radial-gradient(
+    circle at center,
+    #101d35 0%,
+    #050816 75%
+  );
+  overflow: hidden;
+  position: relative;
+}
+
+.app-header {
+  position: absolute;
+  top: 20px;
+  left: 0;
+  width: 100%;
+  text-align: center;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.app-header h1 {
+  font-size: 25px;
+  letter-spacing: 5px;
+  margin: 0 0 8px;
+  color: #ffffff;
+}
+
+.app-header p {
+  color: #aabbd1;
+  font-size: 13px;
+  letter-spacing: 1px;
+  margin: 0;
+}
+
+.globe-area {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.location-card {
+  position: absolute;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #111827;
+  padding: 20px;
+  border-radius: 12px;
+  border: 1px solid #ffe600;
+  color: white;
+  z-index: 5;
+}
+
+.location-card button {
+  background: transparent;
+  color: #ffe600;
+  border: 1px solid #ffe600;
+  padding: 6px 12px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+/* Floating location preview */
+
+.scene-tooltip {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  pointer-events: none !important;
+  padding: 0 !important;
+}
+
+.location-preview {
+  width: 280px;
+  overflow: hidden;
+  background: rgba(8, 17, 35, 0.97);
+  border: 1px solid #ffe600;
+  border-radius: 12px;
+  color: white;
+  box-shadow: 0 0 22px rgba(255, 230, 0, 0.2);
+  font-family: Arial, sans-serif;
+}
+
+.preview-image {
+  width: 100%;
+  height: 135px;
+  background: #14243b;
+}
+
+.preview-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.image-placeholder {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffe600;
+  font-size: 11px;
+  letter-spacing: 2px;
+  background: linear-gradient(135deg, #10223a, #263c56);
+}
+
+.preview-content {
+  padding: 13px;
+}
+
+.preview-content h3 {
+  margin: 0 0 9px;
+  color: #ffe600;
+  font-size: 16px;
+}
+
+.preview-content p {
+  color: #c5d0df;
+  font-size: 12px;
+  line-height: 1.6;
+  margin: 0 0 12px;
+}
+
+.coordinates {
+  border-top: 1px solid #334155;
+  padding-top: 9px;
+  color: #8fa4bd;
+  font-size: 10px;
+  letter-spacing: 1px;
+}
+
+/* Starfield background */
+
+
+
+/* Keep the globe and heading above the stars */
+
+.globe-area {
+  position: relative;
+  z-index: 1;
+}
+
+.app-header {
+  position: absolute;
+  z-index: 3;
+}
+
+.location-card {
+  position: fixed;
+  z-index: 5;
+  bottom: max(90px, 8vh);
+  left: 50%;
+  transform: translateX(-50%);
+  max-height: 65vh;
+  overflow-y: auto;
+}
+
+/* LOCATION EXPLORATION SCREEN */
+
+.exploration-screen {
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  overflow-y: auto;
+  padding: 25px 4%;
+  background: radial-gradient(circle at top, #13233d, #050816 75%);
+  animation: screenAppear 0.6s ease-out both;
+}
+
+@keyframes screenAppear {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.back-button {
+  background: rgba(255, 230, 0, 0.08);
+  border: 1px solid #ffe600;
+  color: #ffe600;
+  padding: 10px 18px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-family: inherit;
+  letter-spacing: 1px;
+  transition: background 0.2s;
+}
+
+.back-button:hover {
+  background: rgba(255, 230, 0, 0.2);
+}
+
+.location-heading {
+  text-align: center;
+  margin: 15px 0 25px;
+}
+
+.location-heading p {
+  color: #ffe600;
+  font-size: 11px;
+  letter-spacing: 3px;
+}
+
+.location-heading h1 {
+  font-family: 'Orbitron', sans-serif;
+  font-size: clamp(22px, 3vw, 36px);
+  margin: 8px 0;
+}
+
+.location-heading span {
+  color: #9fb2cc;
+  font-size: 12px;
+}
+
+.exploration-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.5fr) minmax(280px, 0.85fr);
+  gap: 25px;
+  max-width: 1450px;
+  margin: 0 auto;
+}
+
+.image-section,
+.information-panel {
+  min-width: 0;
+}
+
+.satellite-image-container {
+  position: relative;
+  width: 100%;
+  height: clamp(280px, 48vh, 540px);
+  overflow: hidden;
+  border: 1px solid rgba(255, 230, 0, 0.45);
+  border-radius: 14px;
+  background: #101d35;
+  box-shadow: 0 0 30px rgba(56, 189, 248, 0.12);
+}
+
+.satellite-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  animation: imageZoom 0.9s ease-out both;
+}
+
+@keyframes imageZoom {
+  from {
+    transform: scale(1.18);
+    opacity: 0.3;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.image-overlay {
+  position: absolute;
+  inset: auto 0 0;
+  padding: 45px 20px 18px;
+  background: linear-gradient(transparent, rgba(0, 0, 0, 0.85));
+}
+
+.image-overlay span {
+  color: #ffe600;
+  font-size: 11px;
+  letter-spacing: 2px;
+}
+
+.image-overlay h2 {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 30px;
+  margin: 5px 0 0;
+}
+
+.year-selector {
+  margin-top: 22px;
+  padding: 18px;
+  background: rgba(17, 31, 53, 0.85);
+  border: 1px solid rgba(56, 189, 248, 0.25);
+  border-radius: 12px;
+}
+
+.year-label {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.year-label span {
+  color: #9fb2cc;
+  font-size: 12px;
+  letter-spacing: 2px;
+}
+
+.year-label strong {
+  color: #ffe600;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 22px;
+}
+
+.year-selector input {
+  width: 100%;
+  accent-color: #ffe600;
+  cursor: pointer;
+}
+
+.year-options {
+  display: flex;
+  justify-content: space-between;
+  color: #9fb2cc;
+  font-size: 11px;
+  margin-top: 10px;
+}
+
+.information-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.info-card {
+  padding: 20px;
+  background: rgba(17, 31, 53, 0.85);
+  border: 1px solid rgba(56, 189, 248, 0.25);
+  border-radius: 12px;
+}
+
+.info-card h3 {
+  color: #ffe600;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 13px;
+  letter-spacing: 1.5px;
+  margin: 0 0 12px;
+}
+
+.section-description {
+  color: #9fb2cc;
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+.info-card textarea {
+  width: 100%;
+  min-height: 155px;
+  resize: vertical;
+  padding: 12px;
+  background: #080f20;
+  border: 1px solid #263b59;
+  border-radius: 7px;
+  color: white;
+  font-family: inherit;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.info-card textarea:focus {
+  outline: 1px solid #ffe600;
+}
+
+.info-card textarea::placeholder {
+  color: #71839d;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.stat-box {
+  padding: 15px 12px;
+  background: #080f20;
+  border: 1px solid #263b59;
+  border-radius: 8px;
+}
+
+.stat-box span {
+  display: block;
+  color: #9fb2cc;
+  font-size: 10px;
+  letter-spacing: 1px;
+}
+
+.stat-box strong {
+  display: block;
+  color: #38bdf8;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 23px;
+  margin: 9px 0 4px;
+}
+
+.stat-box small {
+  color: #71839d;
+  font-size: 10px;
+}
+
+@media (max-width: 800px) {
+  .exploration-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .satellite-image-container {
+    height: 330px;
+  }
+
+  .exploration-screen {
+    padding: 18px 4%;
+  }
+}
+
+/* NEW EDITORIAL DESIGN */
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  color: #eeeae0;
+}
+
+.app {
+  color: #eeeae0;
+}
+
+.app-header h1,
+.location-heading h1,
+.image-overlay h2 {
+  font-family: 'Playfair Display', serif;
+  color: #f1eee5;
+  letter-spacing: 0.5px;
+}
+
+.app-header p,
+.location-heading p,
+.location-heading span {
+  color: #c0c4b9;
+}
+
+.info-card h3 {
+  font-family: 'DM Sans', sans-serif;
+  color: #a8bd9c;
+  font-size: 12px;
+  letter-spacing: 1.5px;
+}
+
+.section-description {
+  color: #c0c4b9;
+}
+
+.info-card,
+.year-selector {
+  background: rgba(20, 29, 34, 0.88);
+  border-color: rgba(168, 189, 156, 0.2);
+}
+
+.stat-box {
+  background: #111c20;
+  border-color: rgba(168, 189, 156, 0.18);
+}
+
+.stat-box strong {
+  color: #eeeae0;
+  font-family: 'DM Sans', sans-serif;
+}
+
+.stat-box span,
+.stat-box small,
+.year-options {
+  color: #b5b9ae;
+}
+
+.year-label strong {
+  color: #a8bd9c;
+  font-family: 'DM Sans', sans-serif;
+}
+
+.year-selector input {
+  accent-color: #a8bd9c;
+}
+
+.satellite-image-container {
+  border-color: rgba(168, 189, 156, 0.25);
+  box-shadow: none;
+}
+
+.image-overlay span {
+  color: #c1d0b5;
+}
+
+.back-button {
+  color: #c1d0b5;
+  border-color: #829b7a;
+  background: rgba(168, 189, 156, 0.06);
+}
+
+.back-button:hover {
+  background: rgba(168, 189, 156, 0.15);
+}
+
+
+/* HISTORICAL DATA SCREEN */
+
+.satellite-image-placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  background: #111c20;
+  color: #eeeae0;
+  text-align: center;
+  padding: 20px;
+}
+
+.satellite-image-placeholder span {
+  color: #a8bd9c;
+  font-size: 12px;
+  letter-spacing: 2px;
+}
+
+.satellite-image-placeholder p {
+  color: #b5b9ae;
+  font-size: 13px;
+}
+
+.change-card > p:last-child {
+  color: #d5d5ca;
+  font-size: 14px;
+  line-height: 1.8;
+  margin-top: 12px;
+}
+
+.stats-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.stat-box strong {
+  font-size: clamp(17px, 2vw, 23px);
+  overflow-wrap: anywhere;
+}
+
+.information-panel {
+  align-self: start;
+}
+
+@media (max-width: 800px) {
+  .exploration-layout {
+    grid-template-columns: 1fr;
+  }
+}

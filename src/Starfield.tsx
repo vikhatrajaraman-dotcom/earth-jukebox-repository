@@ -1,0 +1,37 @@
+
+import { useMemo } from "react";
+import "./Starfield.css";
+
+export default function Starfield() {
+  const stars = useMemo(() => {
+    return Array.from({ length: 180 }, (_, i) => ({
+      id: i,
+      left: Math.random() * 100,
+      top: Math.random() * 100,
+      size: Math.random() * 2.2 + 0.4,
+      brightness: Math.random() * 0.65 + 0.25,
+      duration: Math.random() * 5 + 2,
+      delay: Math.random() * -10,
+    }));
+  }, []);
+
+  return (
+    <div className="starfield">
+      {stars.map((star) => (
+        <span
+          key={star.id}
+          className="star"
+          style={{
+            left: `${star.left}%`,
+            top: `${star.top}%`,
+            width: `${star.size}px`,
+            height: `${star.size}px`,
+            opacity: star.brightness,
+            animationDuration: `${star.duration}s`,
+            animationDelay: `${star.delay}s`,
+          }}
+        />
+      ))}
+    </div>
+  );
+}
