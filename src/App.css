@@ -590,3 +590,131 @@ body {
     grid-template-columns: 1fr;
   }
 }
+
+.app {
+  position: relative;
+  min-height: 100vh;
+  isolation: isolate;
+}
+
+.starfield {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+}
+
+.exploration-screen {
+  position: relative;
+  z-index: 1;
+  background: transparent;
+}
+
+
+
+/* SHOOTING STAR TIMELINE */
+
+.shooting-timeline {
+  width: 100%;
+  padding: 18px 0;
+}
+
+.shooting-track {
+  position: relative;
+  width: 100%;
+  height: 4px;
+  border-radius: 20px;
+  background: rgba(168, 189, 156, 0.22);
+}
+
+.shooting-progress {
+  position: absolute;
+  height: 100%;
+  left: 0;
+  top: 0;
+  border-radius: 20px;
+  background: linear-gradient(
+    90deg,
+    rgba(130, 155, 122, 0.35),
+    #dce9bd,
+    #fff9cf
+  );
+  transition: width 0.45s ease;
+}
+
+/* Glowing star head and tapered tail */
+.shooting-star {
+  position: absolute;
+  top: 50%;
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
+  background: #fffde8;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+  pointer-events: none;
+  box-shadow:
+    0 0 5px #ffffff,
+    0 0 12px #fff5a0,
+    0 0 22px #ffe600,
+    0 0 35px rgba(255, 230, 0, 0.7);
+  transition: left 0.45s ease;
+}
+
+.shooting-star::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: 8px;
+  width: 65px;
+  height: 5px;
+  transform: translateY(-50%);
+  border-radius: 100% 0 0 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 230, 0, 0.12),
+    rgba(255, 245, 180, 0.75)
+  );
+  filter: blur(2px);
+}
+
+.shooting-star::after {
+  content: "";
+  position: absolute;
+  inset: -5px;
+  border-radius: 50%;
+  background: rgba(255, 240, 160, 0.16);
+  filter: blur(6px);
+}
+
+/* Invisible interactive slider above the visual track */
+.shooting-input {
+  position: absolute;
+  inset: -15px 0;
+  width: 100%;
+  height: 34px;
+  margin: 0;
+  opacity: 0;
+  cursor: pointer;
+  z-index: 5;
+}
+
+/* Satellite image fade and zoom */
+.satellite-image {
+  animation: satelliteFadeIn 1.2s ease-in-out;
+}
+
+@keyframes satelliteFadeIn {
+  from {
+    opacity: 0;
+    transform: scale(1.035);
+    filter: brightness(1.2);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+    filter: brightness(1);
+  }
+}
